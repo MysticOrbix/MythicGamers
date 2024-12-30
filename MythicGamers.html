@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login with Google</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="login-container">
+    <button id="google-login" class="google-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google Logo" class="google-icon">
+      Login with Google
+    </button>
+  </div>
+
+  <script type="module">
+    // Import Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAmFEoPq9jImwihNowHeHW2QMWUKTypum8",
+      authDomain: "login-38b63.firebaseapp.com",
+      projectId: "login-38b63",
+      storageBucket: "login-38b63.appspot.com",
+      messagingSenderId: "293096426764",
+      appId: "1:293096426764:web:36c096ca668d18cbfd0d29",
+      measurementId: "G-XZSNZ3RH8J"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // Google Sign-In
+    document.getElementById('google-login').addEventListener('click', () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          alert(`Welcome ${user.displayName}`);
+          console.log(user); // Debugging user details
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Login failed");
+        });
+    });
+  </script>
+</body>
+</html>
